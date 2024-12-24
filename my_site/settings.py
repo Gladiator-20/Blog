@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from os import getenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +27,9 @@ SECRET_KEY = "django-insecure-@p(#^=lf)^m-$vxvtmd@&q7i=b&p=@)9ws96l^l4_(!ifz3u77
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = getenv("IS_DEVELOPMENT", True)
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [ ".vercel.app"
-]
+ALLOWED_HOSTS = [ ".vercel.app", "localhost", ".now.sh", "127.0.0.1"]
 # getenv("APP_HOST")
 
 
@@ -117,14 +117,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR/"staticfiles"
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR/"static"
+# ]
 
-MEDIA_ROOT = BASE_DIR / "uploads"
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
+
+MEDIA_ROOT = BASE_DIR/"uploads"
 MEDIA_URL = "/files/"
 
 # Default primary key field type
